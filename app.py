@@ -497,8 +497,6 @@ def main():
             5. **Tab 2**'de Euler ve RK4 farkını gözlemle → numerik mertebenin
                önemini tartış.
 
-            ---
-            *Geliştirici: Üye 1 (yazılım) · Sunum: 20 Mayıs 2026*
             """
         )
 
