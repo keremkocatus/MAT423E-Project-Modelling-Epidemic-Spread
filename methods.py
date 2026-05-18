@@ -205,11 +205,49 @@ def adams_bashforth_moulton(
     return t, y
 
 
+# 5. Nonstandard Finite Difference (NSFD) — Mickens (1994, 2002)
+# SEIR modeline özgü; f(t,y) arayüzü yerine model parametrelerini alır.
+def nsfd_seir(
+    beta: float,
+    sigma: float,
+    gamma: float,
+    nu: float,
+    N: float,
+    t0: float,
+    tf: float,
+    y0: np.ndarray,
+    h: float,
+) -> Tuple[np.ndarray, np.ndarray]:
+    """NSFD çözücü — yalnızca SEIR + aşılama modeli için."""
+    y0 = np.atleast_1d(np.asarray(y0, dtype=float))
+    n_steps = int(np.ceil((tf - t0) / h))
+    t = np.linspace(t0, t0 + n_steps * h, n_steps + 1)
+
+    y = np.zeros((n_steps + 1, 4))
+    y[0] = y0
+
+    phi = h  # Mickens denominator φ(h) = h (1. mertebe seçim)
+
+    for n in range(n_steps):
+        S_n, E_n, I_n, _ = y[n]
+
+        # Sıralı analitik güncelleme (doğrusal sistem, çözüm kapalı formda)
+        S_new = S_n / (1.0 + phi * (beta * I_n / N + nu))
+        E_new = (E_n + phi * beta * S_new * I_n / N) / (1.0 + phi * sigma)
+        I_new = (I_n + phi * sigma * E_new) / (1.0 + phi * gamma)
+        R_new = N - S_new - E_new - I_new   # korunum özdeşliği
+
+        y[n + 1] = [S_new, E_new, I_new, R_new]
+
+    return t, y
+
+
 # İsim → fonksiyon eşleştirmesi
 METHODS = {
     "euler": euler,
     "rk4": rk4,
     "rkf45": rkf45,
     "abm": adams_bashforth_moulton,
+    "nsfd": nsfd_seir,  # SEIR-specific; farklı imza
 }
 
