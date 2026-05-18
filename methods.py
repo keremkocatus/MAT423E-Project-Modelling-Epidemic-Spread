@@ -1,7 +1,3 @@
-# methods.py — MAT423E Proje 1
-# Euler, RK4, RKF45 ve Adams-Bashforth-Moulton yöntemlerinin implementasyonu.
-# Tüm yöntemler genel amaçlı — herhangi bir IVP sistemine uygulanabilir.
-
 from typing import Callable, Tuple
 import numpy as np
 

@@ -1,51 +1,5 @@
-"""
-seir_model.py
-=============
-
-MAT423E — Numerical Solutions of ODEs
-Proje 1: Salgın Yayılımı ve Aşılama Stratejileri
-
-SEIR + aşılama modeli (sağ-yan fonksiyonu) ve yardımcı araçlar.
-
-Model
------
-Kapalı popülasyon (N sabit), homojen karışım varsayımı altında:
-
-    dS/dt = -β·S·I / N - ν·S       (duyarlı -> enfekte ya da aşılı)
-    dE/dt =  β·S·I / N - σ·E       (maruz kalan, kuluçkada)
-    dI/dt =  σ·E - γ·I             (enfekte, bulaştırıcı)
-    dR/dt =  γ·I + ν·S             (iyileşmiş + aşılı)
-
-Parametreler
-------------
-β (beta)  : etkili bulaşma oranı  [1/gün]
-σ (sigma) : 1 / kuluçka süresi    [1/gün]
-γ (gamma) : 1 / bulaştırıcılık süresi (iyileşme oranı) [1/gün]
-ν (nu)    : duyarlıdan rastgele aşılama oranı [1/gün]
-N         : toplam popülasyon
-
-Temel üreme sayısı
-------------------
-    R₀ = β / γ
-
-Aşılama eşiği (sürü bağışıklığı için)
--------------------------------------
-    p_c = 1 - 1/R₀
-
-Varsayımlar
------------
-- Toplam popülasyon sabit (doğum/ölüm yok, N = S + E + I + R).
-- Bağışıklık kalıcı (R'den S'e dönüş yok).
-- Aşı %100 etkili, anında bağışıklık veriyor.
-- Homojen karışım — herkes herkesle eşit olasılıkla temas eder.
-
-Bu varsayımların hangileri gerçeklikten saptığı Üye 2'nin matematiksel
-modelleme bölümünde tartışılacaktır.
-"""
-
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Callable
-
 import numpy as np
 
 

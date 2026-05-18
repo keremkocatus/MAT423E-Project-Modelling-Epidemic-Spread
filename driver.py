@@ -1,13 +1,7 @@
-# driver.py — MAT423E Proje 1
-# SEIR modelini 4 yöntemle çözer, sonuçları paketler.
-# CLI'den doğrudan veya import edilerek kullanılabilir.
-
 import argparse
 import time
 from typing import Optional
 import matplotlib.pyplot as plt
-import numpy as np
-
 from methods import euler, rk4, rkf45, adams_bashforth_moulton
 from seir_model import SEIRParams, make_seir_rhs, epidemic_summary
 
@@ -19,33 +13,7 @@ def run_all_methods(
     rkf45_tol: float = 1e-6,
     methods: Optional[list[str]] = None,
 ) -> dict:
-    """
-    SEIR modelini istenen yöntemlerle çözer ve sonuçları paketler.
-
-    Parametreler
-    ------------
-    params    : SEIRParams — modelin tüm parametreleri ve başlangıç koşulu
-    t_end     : simülasyon süresi (gün)
-    h         : sabit-adımlı yöntemler için adım büyüklüğü (gün)
-    rkf45_tol : RKF45 için yerel hata toleransı
-    methods   : hangi yöntemler koşacak — None ise hepsi.
-                Seçenekler: "euler", "rk4", "rkf45", "abm"
-
-    Döndürür
-    --------
-    results : dict — her yöntem için:
-        {
-          method_name: {
-            "t":         (N+1,)  zaman dizisi,
-            "y":         (N+1, 4) durum matrisi [S, E, I, R],
-            "runtime":   float (saniye),
-            "n_steps":   int (toplam adım sayısı),
-            "n_fevals":  int (yaklaşık fonksiyon değerlendirme sayısı),
-            "summary":   dict (epidemik metrikler),
-          },
-          ...
-        }
-    """
+    
     if methods is None:
         methods = ["euler", "rk4", "rkf45", "abm"]
 

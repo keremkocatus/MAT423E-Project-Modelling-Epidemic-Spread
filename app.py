@@ -1,10 +1,4 @@
-# app.py — MAT423E Project 1
-# Interactive SEIR simulator — streamlit run app.py
-
-from __future__ import annotations
-
 import time
-
 import numpy as np
 import matplotlib.pyplot as plt
 import streamlit as st

@@ -1,7 +1,3 @@
-# validation.py — MAT423E Proje 1
-# scipy.solve_ivp YALNIZCA referans çözüm olarak kullanılır (proje kuralı).
-# Kendi yöntemlerimizi LSODA (tol=1e-12) çözümüne göre doğrularız.
-
 import time
 import numpy as np
 import matplotlib.pyplot as plt
@@ -21,16 +17,7 @@ def reference_solution(
     rtol: float = 1e-12,
     atol: float = 1e-12,
 ):
-    """
-    scipy.integrate.solve_ivp ile yüksek-doğruluklu referans çözüm.
 
-    LSODA: stiff/non-stiff arasında otomatik geçiş yapan klasik Hindmarsh
-    çözücüsü; SEIR genelde non-stiff ama tedbir amaçlı seçildi.
-
-    Tolerans 1e-12: hesaplama maliyeti pahasına makine epsilon'a yakın
-    doğruluk — kendi yöntemlerimizin yapabileceğinin çok altında bir hata
-    seviyesi sağlar, bu yüzden "ground truth" olarak güvenle kullanılabilir.
-    """
     f = make_seir_rhs(params)
     sol = solve_ivp(
         fun=f,
